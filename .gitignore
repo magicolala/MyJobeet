@@ -20,8 +20,8 @@
 /vendor/*
 
 # Assets and user uploads
-/web/bundles/
-/web/uploads/
+# /web/bundles/
+# /web/uploads/
 
 # Assets managed by Bower
 /web/assets/vendor/

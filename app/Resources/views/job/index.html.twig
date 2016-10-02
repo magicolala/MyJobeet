@@ -1,24 +1,35 @@
 {% extends 'EnsJobeetBundle::layout.html.twig' %}
 
 {% block stylesheets %}
-  {{ parent() }}
-  <link rel="stylesheet" href="{{ asset('public/css/jobs.css') }}" type="text/css" media="all" />
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('public/css/jobs.css') }}" type="text/css" media="all" />
 {% endblock %}
 
 {% block content %}
-    <div id="jobs">
-      <table class="jobs">
+<div id="jobs">
+    <table class="jobs">
+        <tr>
+            <td>
+                <h1>Lieux</h1>
+            </td>
+            <td>
+                <h1>Métiers</h1>
+            </td>
+            <td>
+                <h1>Employeurs</h1>
+            </td>
+        </tr>
         {% for job in jobs %}
-          <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+        <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
             <td class="location">{{ job.location }}</td>
             <td class="position">
-              <a href="{{ path('ens_job_show', { 'id': job.id }) }}">
-                {{ job.position }}
-              </a>
+                <a href="{{ path('ens_job_show', { 'id': job.id, 'company': job.companySlug, 'location': job.locationSlug, 'position': job.positionSlug}) }}">
+                    {{ job.position }}
+                </a>
             </td>
             <td class="company">{{ job.company }}</td>
-          </tr>
+        </tr>
         {% endfor %}
-      </table>
-    </div>
+    </table>
+</div>
 {% endblock %}

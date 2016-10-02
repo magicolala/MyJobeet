@@ -259,6 +259,7 @@ body
 #footer .symfony img
 {
   vertical-align: middle;
+  width: 80px;
 }
 
 #footer form {
