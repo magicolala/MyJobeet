@@ -4,6 +4,7 @@ namespace Ens\JobeetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ens\JobeetBundle\Utils\Jobeet;
 
 /**
 * Category
@@ -22,6 +23,8 @@ class Category
     */
     private $id;
 
+    private $more_jobs;
+
     /**
     * @var string
     *
@@ -32,9 +35,16 @@ class Category
     /**
     * @var string
     *
+    * @ORM\Column(name="slug", type="string", length=255)
+    */
+    private $slug;
+
+    /**
+    * @var string
+    *
     * @ORM\Column(name="active_jobs", type="string", length=255, nullable=true)
     */
-    private $active_jobs;
+    private $activeJobs;
 
 
     /**
@@ -132,6 +142,16 @@ class Category
         return $this->active_jobs;
     }
 
+    public function setMoreJobs($jobs)
+    {
+        $this->more_jobs = $jobs >=  0 ? $jobs : 0;
+    }
+
+    public function getMoreJobs()
+    {
+        return $this->more_jobs;
+    }
+
     /**
     * Add category_affiliates
     *
@@ -165,8 +185,32 @@ class Category
         return $this->category_affiliates;
     }
 
+    /**
+    * Get slug
+    *
+    * @return string
+    */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+
+
     public function __toString()
     {
         return $this->getName();
     }
+
+    /**
+    * @ORM/PrePersist
+    */
+    public function setSlugValue()
+    {
+        $this->slug = Jobeet::slugify($this->getName());
+    }
+
+
+
+
 }

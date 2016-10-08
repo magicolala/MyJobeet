@@ -107,6 +107,14 @@ class Job
     */
     private $email;
 
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="active_jobs", type="string", length=255, nullable=true)
+    */
+    private $activeJobs;
+
     /**
     * @var \DateTime
     *
@@ -575,5 +583,15 @@ class Job
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function setActiveJobs($jobs)
+    {
+        $this->active_jobs = $jobs;
+    }
+
+    public function getActiveJobs()
+    {
+        return $this->active_jobs;
     }
 }

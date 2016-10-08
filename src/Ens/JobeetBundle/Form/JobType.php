@@ -2,38 +2,36 @@
 
 namespace Ens\JobeetBundle\Form;
 
+use Ens\JobeetBundle\Entity\Job;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class JobType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('type')
-            ->add('company')
-            ->add('logo')
-            ->add('url')
-            ->add('position')
-            ->add('location')
-            ->add('description')
-            ->add('howToApply')
-            ->add('token')
-            ->add('isPublic')
-            ->add('isActivated')
-            ->add('email')
-            ->add('expiresAt', 'datetime')
-            ->add('createdAt', 'datetime')
-            ->add('updatedAt', 'datetime')
-            ->add('category')
-        ;
+        $builder->add('category');
+        $builder->add('type', 'choice', array('choices' => Job::getTypes(), 'expanded' => true));
+        $builder->add('company');
+        $builder->add('logo', null, array('label' => 'Company logo'));
+        $builder->add('url');
+        $builder->add('position');
+        $builder->add('location');
+        $builder->add('description');
+        $builder->add('file', 'file', array('label' => 'Company logo', 'required' => false));
+        $builder->add('howToApply', null, array('label' => 'How to apply?'));
+        $builder->add('token');
+        $builder->add('is_public', null, array('label' => 'Public?'));
+        $builder->add('email');
     }
-    
+
+    public function getName()
+    {
+        return 'ens_jobeetbundle_jobtype';
+    }
+
     /**
      * @param OptionsResolver $resolver
      */

@@ -44,6 +44,8 @@ class Job
     */
     private $logo;
 
+    public $file;
+
     /**
     * @var string
     *
@@ -106,6 +108,14 @@ class Job
     * @ORM\Column(name="email", type="string", length=255)
     */
     private $email;
+
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="active_jobs", type="string", length=255, nullable=true)
+    */
+    private $activeJobs;
 
     /**
     * @var \DateTime
@@ -539,11 +549,11 @@ class Job
 
 
     /**
-     * Set expiresAt
-     *
-     * @param \DateTime $expiresAt
-     * @return Job
-     */
+    * Set expiresAt
+    *
+    * @param \DateTime $expiresAt
+    * @return Job
+    */
     public function setExpiresAt($expiresAt)
     {
         $this->expiresAt = $expiresAt;
@@ -552,11 +562,11 @@ class Job
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Job
-     */
+    * Set createdAt
+    *
+    * @param \DateTime $createdAt
+    * @return Job
+    */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -565,15 +575,55 @@ class Job
     }
 
     /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Job
-     */
+    * Set updatedAt
+    *
+    * @param \DateTime $updatedAt
+    * @return Job
+    */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function setActiveJobs($jobs)
+    {
+        $this->active_jobs = $jobs;
+    }
+
+    public function getActiveJobs()
+    {
+        return $this->active_jobs;
+    }
+
+    public static function getTypes()
+    {
+        return array('full-time' => 'Full time', 'part-time' => 'Part time', 'freelance' => 'Freelance');
+    }
+
+    public static function getTypeValues()
+    {
+        return array_keys(self::getTypes());
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/jobs';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->logo ? null : $this->getUploadDir().'/'.$this->logo;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->logo ? null : $this->getUploadRootDir().'/'.$this->logo;
     }
 }

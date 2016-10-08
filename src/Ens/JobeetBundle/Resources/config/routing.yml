@@ -1,3 +1,7 @@
+EnsJobeetBundle_category:
+    pattern:  /category/{slug}/{page}
+    defaults: { _controller: EnsJobeetBundle:Category:show, page: 1 }
+
 ens_jobeet_homepage:
     path:     /
     defaults: { _controller: EnsJobeetBundle:Job:index }

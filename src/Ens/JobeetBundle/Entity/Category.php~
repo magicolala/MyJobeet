@@ -32,9 +32,9 @@ class Category
     /**
     * @var string
     *
-    * @ORM\Column(name="active_jobs", type="string", length=255)
+    * @ORM\Column(name="active_jobs", type="string", length=255, nullable=true)
     */
-    private $active_jobs;
+    private $activeJobs;
 
 
     /**
